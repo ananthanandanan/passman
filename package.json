@@ -1,0 +1,24 @@
+{
+  "name": "passman",
+  "version": "1.0.0",
+  "description": "A password manager for lazy people.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ananthanandanan/passman.git"
+  },
+  "author": "K N Ananthanandanan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ananthanandanan/passman/issues"
+  },
+  "homepage": "https://github.com/ananthanandanan/passman#readme",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "clipboardy": "^2.3.0",
+    "commander": "^8.0.0"
+  }
+}
