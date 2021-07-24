@@ -3,7 +3,7 @@
 passman is a password manager for commandline written in Javascript. It supports in all OS[Linux, Windows, Mac].
 It is a lighweight tool, which provides option to generate password and store it locally and securely. All the entries are stored at **passman/db/passwords.db**. 
 
-![]("./images/1.png")
+![Drag Racing](./images/pic.png)
 
 ## Prerequisites
 
