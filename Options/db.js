@@ -13,10 +13,12 @@ const store = (label, password) => {
     if(checkTableExist(db) == false){
         console.log(chalk.redBright("Table fault"));
         db.close()
+        return
     }
     if(storeData(label, password, db)== false){
         console.log(chalk.redBright("Error while saving to database"));
         db.close()
+        return
     }
 
     console.log(chalk.greenBright("Password saved to Database..."))
@@ -34,6 +36,7 @@ const database = ()=>{
     let db = new sqlite3.Database(path.join(__dirname,'..', 'db', 'passwords.db'), (err) => {
         if(err) {
             console.log(chalk.redBright(err.message));
+            return
         }
     });
     console.log(chalk.green("Database connected.."));
@@ -70,6 +73,7 @@ const getallLabels = () => {
         if (err) {
             console.log(chalk.redBright(err.message))
             db.close()
+            return
         }
         rows.forEach((row) => {
         console.log(chalk.bold.rgb(10, 100, 200)(row.label));
@@ -86,10 +90,27 @@ const getPassword = (label) => {
         if (err) {
             console.log(chalk.redBright(err.message))
             db.close()
+            return
+        }
+        if(!row.password){
+            console.log(chalk.redBright("Invalid label"))
         }
         const password = row.password
         clip.writeSync(password)
         console.log(chalk.underline.cyanBright("Copied to clipboard..."))
     })
 }
-module.exports = {store, getallLabels, getPassword};
+
+const deleteEntry = (label) => {
+    const db = database();
+    db.get("DELETE from pass WHERE label=?", [label], (err, row) => {
+        if (err) {
+            console.log(chalk.redBright(err.message))
+            db.close()
+            return
+        }
+        console.log(chalk.underline.redBright(`Entry with label: ${label} deleted`))
+    })
+
+}
+module.exports = {store, getallLabels, getPassword, deleteEntry};
