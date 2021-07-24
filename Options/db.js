@@ -1,6 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path')
 const chalk = require('chalk')
+const clip = require('clipboardy');
 
 const store = (label, password) => {
 
@@ -61,4 +62,34 @@ const storeData = (label, password, db) => {
 
 }
 
-module.exports = store;
+const getallLabels = () => {
+
+    const db = database();
+    console.log(chalk.underline.cyan("List of labels"))
+    db.all("SELECT label from pass", [], (err, rows) => {
+        if (err) {
+            console.log(chalk.redBright(err.message))
+            db.close()
+        }
+        rows.forEach((row) => {
+        console.log(chalk.bold.rgb(10, 100, 200)(row.label));
+        });
+        console.log(chalk.underline.cyan("END"))
+    });
+    db.close()
+}
+
+const getPassword = (label) => {
+
+    const db = database();
+    db.get("SELECT password from pass WHERE label=?", [label], (err, row) => {
+        if (err) {
+            console.log(chalk.redBright(err.message))
+            db.close()
+        }
+        const password = row.password
+        clip.writeSync(password)
+        console.log(chalk.underline.cyanBright("Copied to clipboard..."))
+    })
+}
+module.exports = {store, getallLabels, getPassword};
