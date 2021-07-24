@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "A password manager for lazy people.",
   "main": "index.js",
+  "preferGlobal": true,
+  "bin": "./index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

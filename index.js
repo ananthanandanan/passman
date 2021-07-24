@@ -1,9 +1,9 @@
+#!/usr/bin/env node
 const program = require('commander');
 const clip = require('clipboardy');
 const chalk = require('chalk');
 const logger = console.log;
 const createPassword = require("./Options/createPassword");
-//const savePassword = require("./Options/savePassword");
 const {store, getallLabels, getPassword, deleteEntry} = require("./Options/db");
 
 program.version('1.0.0').description('A password manager for lazy people')
@@ -11,7 +11,6 @@ program.version('1.0.0').description('A password manager for lazy people')
 // Commands
 program
     .option('-l,--length <number>', 'Length of the password', '6')
-    //.option('-s, --save', 'save the generated password to database')
     .option('-g, --passgen', 'generated password')
     .option('-sl, --showlabel', 'Show all lablled passwords')
     .option('-ll,--label <label>', 'Label of the password')
@@ -41,6 +40,7 @@ if(showlabel) {
 if(passgen) {
     const generatedPsswords = createPassword(length, numbers, symbols);
     logger(chalk.yellow('Generated Password: ') + chalk.bold(generatedPsswords));
+    clip.writeSync(generatedPsswords);
     logger(chalk.cyanBright('Copied to clipboard'))
 }
 
