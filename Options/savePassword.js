@@ -1,17 +1,17 @@
-const fs = require('fs')
-const path = require('path')
-const os = require('os')
-const chalk = require('chalk')
+// const fs = require('fs')
+// const path = require('path')
+// const os = require('os')
+// const chalk = require('chalk')
 
 
-const savePassword = (password) => {
-    fs.open(path.join(__dirname, '../', 'passwords.txt'), 'a', 666, (e, id) => {
-        fs.write(id, password + os.EOL, null, 'utf-8', () => {
-            fs.close(id, () => {
-                console.log(chalk.red("Password is saved to Database..."))
-            })
-        })
-    })
-}
+// const savePassword = (password) => {
+//     fs.open(path.join(__dirname, '../', 'passwords.txt'), 'a', 666, (e, id) => {
+//         fs.write(id, password + os.EOL, null, 'utf-8', () => {
+//             fs.close(id, () => {
+//                 console.log(chalk.red("Password is saved to Database..."))
+//             })
+//         })
+//     })
+// }
 
-module.exports = savePassword;
+// module.exports = savePassword;
